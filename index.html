@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Floodwatch - Real-time Flood Monitoring</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* General Styles */
+      :root {
+        --primary-color: #0d6efd;
+        --secondary-color: #6c757d;
+        --dark-color: #212529;
+        --light-color: #f8f9fa;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        padding: 1rem;
+        background: rgba(33, 37, 41, 0.98) !important;
+        backdrop-filter: blur(10px);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color) !important;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        min-height: 100vh;
+        background-image: url("https://cdn.glitch.global/70f38ac2-7b24-4238-83cf-e903d02311f6/844ee8bb00fdd6530d434b4be9d490b6.gif?v=1731286951988");
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        padding-top: 76px;
+      }
+
+      .hero-content {
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Feature Cards */
+      .feature-card {
+        height: 350px;
+        perspective: 1500px;
+        margin-bottom: 30px;
+      }
+
+      .feature-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        cursor: pointer;
+      }
+
+      .feature-card:hover .feature-card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .feature-card-front,
+      .feature-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        padding: 2rem;
+      }
+
+      .feature-card-front {
+        background: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-card-back {
+        background: var(--primary-color);
+        color: white;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Stats Section */
+      .stats-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: linear-gradient(135deg, var(--primary-color), #0099ff);
+        padding: 5rem 0;
+        color: white;
+        text-align: center;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark-color);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      footer a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      footer a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero-section {
+          padding-top: 100px;
+        }
+
+        .feature-card {
+          height: 300px;
+        }
+
+        .stat-number {
+          font-size: 2.5rem;
+        }
+      }
+
+      .img-fluid {
+        max-width: 100%;
+        height: 300px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><i class="fas fa-tint me-2"></i>Floodwatch</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-outline-light" href="dashboard.html">
+                <i class="fas fa-chart-line me-2"></i>Dashboard
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="display-3 mb-4 animate__animated animate__fadeInDown">
+            Real-time Flood Monitoring System
+          </h1>
+          <p class="lead mb-5 animate__animated animate__fadeInUp">
+            Protect your community from devastating floods with advanced
+            monitoring and early warning solutions.
+          </p>
+          <div class="animate__animated animate__fadeInUp animate__delay-1s">
+            <a href="dashboard.html" class="btn btn-light btn-lg me-3">
+              <i class="fas fa-chart-line me-2"></i>Live Dashboard
+            </a>
+            <a href="#features" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-info-circle me-2"></i>Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section
+      class="about-section animate__animated animate__fadeInUp"
+      id="about"
+    >
+      <div>
+        <div class="card-body">
+          <section class="py-5 bg-light">
+            <div class="container">
+              <div class="row align-items-center">
+                <div class="col-md-6 animate__animated animate__fadeInLeft">
+                  <h2 class="mb-4">About Floodwatch</h2>
+                  <p class="lead">
+                    Floodwatch is a comprehensive platform for monitoring and
+                    preventing flooding events. Our advanced AI and
+                    real-time data analysis provide critical insights to help
+                    communities stay prepared and resilient against floods.
+                  </p>
+                </div>
+                <div class="col-md-6 animate__animated animate__fadeInRight">
+                  <img
+                    src="https://cdn-icons-gif.flaticon.com/12749/12749381.gif"
+                    alt="Floodwatch"
+                    class="img-fluid rounded shadow"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5 animate__animated animate__fadeInUp">
+      <div class="container">
+        <h2 class="text-center mb-5">Key Features</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-card-inner">
+                <div class="feature-card-front">
+                  <i
+                    class="fas fa-cloud-showers-heavy fa-3x mb-4 text-primary"
+                  ></i>
+                  <h3>Real-time Monitoring</h3>
+                  <p>Track flood levels and water flow in real-time</p>
+                </div>
+                <div class="feature-card-back">
+                  <h3>Real-time Monitoring</h3>
+                  <p>
+                    Advanced sensors provide continuous monitoring of water
+                    levels, rainfall, and river conditions
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-card-inner">
+                <div class="feature-card-front">
+                  <i class="fas fa-chart-line fa-3x mb-4 text-primary"></i>
+                  <h3>Flood Forecasting</h3>
+                  <p>Accurate flood forecasting for prevention</p>
+                </div>
+                <div class="feature-card-back">
+                  <h3>Flood Forecasting</h3>
+                  <p>
+                    Predict future flooding events using machine learning
+                    algorithms to safeguard communities
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-card-inner">
+                <div class="feature-card-front">
+<i class="fas fa-location-dot fa-3x text-primary" style="
+    padding-bottom: 20px;
+"></i>
+                  <h3>Monitored Locations</h3>
+                  <p>You can monitored locations of your family members or friends</p>
+                </div>
+                <div class="feature-card-back">
+                  <h3>Monitored Locations</h3>
+                  <p>
+                    Get notifications on your mobile or email to take early
+                    action and reduce flood damage
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section py-5">
+      <div class="container">
+        <h2 class="display-4 mb-4">Join Us in the Fight Against Flooding</h2>
+        <p class="lead mb-4">
+          
+          Get started with Floodwatch today and make your community more
+          resilient to natural disasters.
+        </p>
+        <a href="dashboard.html" class="btn btn-light btn-lg">
+          <i class="fas fa-chart-line me-2"></i>Start Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <p>© 2024 Floodwatch. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
